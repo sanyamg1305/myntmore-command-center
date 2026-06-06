@@ -14,7 +14,6 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SalesRouteImport } from './routes/sales'
 import { Route as ProcessesRouteImport } from './routes/processes'
 import { Route as MonthlyTargetsRouteImport } from './routes/monthly-targets'
-import { Route as MondayModeRouteImport } from './routes/monday-mode'
 import { Route as MmContentRouteImport } from './routes/mm-content'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as FinanceRouteImport } from './routes/finance'
@@ -52,11 +51,6 @@ const ProcessesRoute = ProcessesRouteImport.update({
 const MonthlyTargetsRoute = MonthlyTargetsRouteImport.update({
   id: '/monthly-targets',
   path: '/monthly-targets',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MondayModeRoute = MondayModeRouteImport.update({
-  id: '/monday-mode',
-  path: '/monday-mode',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MmContentRoute = MmContentRouteImport.update({
@@ -135,7 +129,6 @@ export interface FileRoutesByFullPath {
   '/finance': typeof FinanceRoute
   '/login': typeof LoginRoute
   '/mm-content': typeof MmContentRoute
-  '/monday-mode': typeof MondayModeRoute
   '/monthly-targets': typeof MonthlyTargetsRoute
   '/processes': typeof ProcessesRoute
   '/sales': typeof SalesRoute
@@ -156,7 +149,6 @@ export interface FileRoutesByTo {
   '/finance': typeof FinanceRoute
   '/login': typeof LoginRoute
   '/mm-content': typeof MmContentRoute
-  '/monday-mode': typeof MondayModeRoute
   '/monthly-targets': typeof MonthlyTargetsRoute
   '/processes': typeof ProcessesRoute
   '/sales': typeof SalesRoute
@@ -178,7 +170,6 @@ export interface FileRoutesById {
   '/finance': typeof FinanceRoute
   '/login': typeof LoginRoute
   '/mm-content': typeof MmContentRoute
-  '/monday-mode': typeof MondayModeRoute
   '/monthly-targets': typeof MonthlyTargetsRoute
   '/processes': typeof ProcessesRoute
   '/sales': typeof SalesRoute
@@ -201,7 +192,6 @@ export interface FileRouteTypes {
     | '/finance'
     | '/login'
     | '/mm-content'
-    | '/monday-mode'
     | '/monthly-targets'
     | '/processes'
     | '/sales'
@@ -222,7 +212,6 @@ export interface FileRouteTypes {
     | '/finance'
     | '/login'
     | '/mm-content'
-    | '/monday-mode'
     | '/monthly-targets'
     | '/processes'
     | '/sales'
@@ -243,7 +232,6 @@ export interface FileRouteTypes {
     | '/finance'
     | '/login'
     | '/mm-content'
-    | '/monday-mode'
     | '/monthly-targets'
     | '/processes'
     | '/sales'
@@ -265,7 +253,6 @@ export interface RootRouteChildren {
   FinanceRoute: typeof FinanceRoute
   LoginRoute: typeof LoginRoute
   MmContentRoute: typeof MmContentRoute
-  MondayModeRoute: typeof MondayModeRoute
   MonthlyTargetsRoute: typeof MonthlyTargetsRoute
   ProcessesRoute: typeof ProcessesRoute
   SalesRoute: typeof SalesRoute
@@ -308,13 +295,6 @@ declare module '@tanstack/react-router' {
       path: '/monthly-targets'
       fullPath: '/monthly-targets'
       preLoaderRoute: typeof MonthlyTargetsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/monday-mode': {
-      id: '/monday-mode'
-      path: '/monday-mode'
-      fullPath: '/monday-mode'
-      preLoaderRoute: typeof MondayModeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mm-content': {
@@ -448,7 +428,6 @@ const rootRouteChildren: RootRouteChildren = {
   FinanceRoute: FinanceRoute,
   LoginRoute: LoginRoute,
   MmContentRoute: MmContentRoute,
-  MondayModeRoute: MondayModeRoute,
   MonthlyTargetsRoute: MonthlyTargetsRoute,
   ProcessesRoute: ProcessesRoute,
   SalesRoute: SalesRoute,

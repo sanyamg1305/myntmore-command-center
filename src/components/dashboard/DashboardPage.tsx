@@ -935,9 +935,6 @@ export function DashboardPage() {
                       >
                         {isMonthlyView ? "Weekly View" : "Monthly View"}
                       </Button>
-                      <Button asChild variant="outline" size="sm" className="font-bold border-gold/30 h-9">
-                          <Link to="/monday-mode">Launch Monday Mode →</Link>
-                      </Button>
                       <Button asChild size="sm" className="bg-gold text-black hover:bg-gold/90 font-black h-9">
                           <Link to="/data-entry">Quick Data Entry</Link>
                       </Button>

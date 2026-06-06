@@ -259,6 +259,8 @@ export function MonthlyProgressPage() {
     for (const metric of metricsWithTargets) {
       weeklyActuals[metric.id] = {}
       let total: number | null = null
+      let count = 0
+      const isRate = metric.unit === '%'
 
       for (const ws of weekStarts) {
         const rowData = weeklyRows[ws]
@@ -285,10 +287,10 @@ export function MonthlyProgressPage() {
         }
 
         weeklyActuals[metric.id][ws] = val
-        if (val !== null) total = (total ?? 0) + val
+        if (val !== null) { total = (total ?? 0) + val; count++ }
       }
 
-      metricActuals[metric.id] = total
+      metricActuals[metric.id] = total !== null && isRate ? total / count : total
     }
 
     return { metricActuals, weeklyActuals }
