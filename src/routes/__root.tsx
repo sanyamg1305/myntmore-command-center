@@ -9,13 +9,44 @@ import {
   useRouter,
   useRouterState,
 } from "@tanstack/react-router";
-
+import { Component, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { AuthProvider, useAuth } from "@/lib/auth";
 import { Toaster } from "@/components/ui/sonner";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
+
+class RootErrorBoundary extends Component<{ children: ReactNode }, { error: Error | null }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { error: null };
+  }
+  static getDerivedStateFromError(error: Error) {
+    return { error };
+  }
+  componentDidCatch(error: Error, info: unknown) {
+    console.error("[RootErrorBoundary]", error, info);
+  }
+  render() {
+    if (this.state.error) {
+      return (
+        <div style={{ fontFamily: "system-ui", padding: "2rem", maxWidth: "600px", margin: "4rem auto", textAlign: "center" }}>
+          <h1 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "0.5rem" }}>Something went wrong</h1>
+          <pre style={{ background: "#f3f4f6", padding: "1rem", borderRadius: "8px", fontSize: "0.8rem", textAlign: "left", whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+            {this.state.error.message}
+            {"\n\n"}
+            {this.state.error.stack}
+          </pre>
+          <button onClick={() => window.location.reload()} style={{ marginTop: "1rem", padding: "0.5rem 1.5rem", background: "#FFC947", border: "none", borderRadius: "6px", fontWeight: "bold", cursor: "pointer" }}>
+            Reload
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 function NotFoundComponent() {
   const navigate = useNavigate()
@@ -87,12 +118,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <AppLayout />
-        <Toaster richColors position="top-right" />
-      </AuthProvider>
-    </QueryClientProvider>
+    <RootErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <AppLayout />
+          <Toaster richColors position="top-right" />
+        </AuthProvider>
+      </QueryClientProvider>
+    </RootErrorBoundary>
   );
 }
 
